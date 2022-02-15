@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=4G Indicator
+Comment=A 4G indicator for Gnome based Linux desktops
+Exec=4gindicator
+Icon=/usr/share/4gindicator/resources/4g.svg
+Terminal=false
+StartupNotify=true
+Type=Application
+Categories=GNOME;GTK;Utility;
