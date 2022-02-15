@@ -71,9 +71,9 @@ class Indicator():
             self.status = False
         return self.status
 
-    def connect(self, widget):
+    def connect(self, widget, ssid):
         try:
-            output = subprocess.check_output('nmcli -c no device wifi list --rescan yes && nmcli device wifi connect "{0}"'.format(WIFI_SSID), shell=True, stdin=subprocess.PIPE)
+            output = subprocess.check_output('nmcli -c no device wifi list --rescan yes && nmcli device wifi connect "{0}"'.format(ssid), shell=True, stdin=subprocess.PIPE)
             if 'successfully activated' in output.decode():
                 self.update_4g_state()
         except subprocess.CalledProcessError as e:
@@ -83,8 +83,18 @@ class Indicator():
         menu = Gtk.Menu()
 
         item_connect = Gtk.MenuItem.new_with_label('Connect')
-        item_connect.connect('activate', self.connect)
+        menu_connect = Gtk.Menu()
+        item_connect.set_submenu(menu_connect)
         menu.append(item_connect)
+
+        item_connect_1 = Gtk.MenuItem.new_with_label(WIFI_SSID)
+        item_connect_1.connect('activate', self.connect, WIFI_SSID)
+        menu_connect.append(item_connect_1)
+
+        WIFI_SSID_2 = 'D-Link-ELG'
+        item_connect_2 = Gtk.MenuItem.new_with_label(WIFI_SSID_2)
+        item_connect_2.connect('activate', self.connect, WIFI_SSID_2)
+        menu_connect.append(item_connect_2)
 
         item_settings = Gtk.MenuItem.new_with_label('Settings')
         menu_settings = Gtk.Menu()
