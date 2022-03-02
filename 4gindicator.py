@@ -14,7 +14,7 @@ from threading import Timer
 from settings import Settings
 
 APPINDICATOR_ID = '4gindicator'
-WIFI_SSID = 'Téléphone Mi'
+WIFI_LIST = ['Redmi 9T', 'Téléphone Mi']
 AUTOCHECK_TIMEOUT = 10 # seconds
 FLASH_RATE = 60 # seconds
 
@@ -66,7 +66,7 @@ class Indicator():
     def get_current_4g_state(self):
         try:
             output = subprocess.check_output('iwgetid -r', shell=True, stdin=subprocess.PIPE)
-            self.status = WIFI_SSID in output.decode().rstrip()
+            self.status = output.decode().rstrip() in WIFI_LIST
         except subprocess.CalledProcessError as e:
             self.status = False
         return self.status
@@ -87,14 +87,10 @@ class Indicator():
         item_connect.set_submenu(menu_connect)
         menu.append(item_connect)
 
-        item_connect_1 = Gtk.MenuItem.new_with_label(WIFI_SSID)
-        item_connect_1.connect('activate', self.connect, WIFI_SSID)
-        menu_connect.append(item_connect_1)
-
-        WIFI_SSID_2 = 'D-Link-ELG'
-        item_connect_2 = Gtk.MenuItem.new_with_label(WIFI_SSID_2)
-        item_connect_2.connect('activate', self.connect, WIFI_SSID_2)
-        menu_connect.append(item_connect_2)
+        for ssid in WIFI_LIST + ['D-Link-ELG']:
+            item_connect_option = Gtk.MenuItem.new_with_label(ssid)
+            item_connect_option.connect('activate', self.connect, ssid)
+            menu_connect.append(item_connect_option)
 
         item_settings = Gtk.MenuItem.new_with_label('Settings')
         menu_settings = Gtk.Menu()
