@@ -15,6 +15,7 @@ from settings import Settings
 
 APPINDICATOR_ID = '4gindicator'
 WIFI_LIST = ['Redmi 9T', 'Téléphone Mi']
+EXTRA_WIFI_LIST = ['D-Link-ELG']
 AUTOCHECK_TIMEOUT = 10 # seconds
 FLASH_RATE = 60 # seconds
 
@@ -87,7 +88,7 @@ class Indicator():
         item_connect.set_submenu(menu_connect)
         menu.append(item_connect)
 
-        for ssid in WIFI_LIST + ['D-Link-ELG']:
+        for ssid in WIFI_LIST + EXTRA_WIFI_LIST:
             item_connect_option = Gtk.MenuItem.new_with_label(ssid)
             item_connect_option.connect('activate', self.connect, ssid)
             menu_connect.append(item_connect_option)
