@@ -34,7 +34,7 @@ Simply run the install script in `sudo` mode & all files should be updated.
 
 ## Credits
 
-Icons made by [Icongeek26](https://www.flaticon.com/authors/icongeek26) from [Flaticon](https://www.flaticon.com/).
+Icons made by [Health icons](https://healthicons.org).
 
 ## License
 
